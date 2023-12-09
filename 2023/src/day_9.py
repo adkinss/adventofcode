@@ -62,40 +62,32 @@ def find_all_values(all_series):
     return next_values
 
 
-if False:
-    input = read_input("9a", transformer, example=True)
-    next_value = sum(find_all_values(input))
-    print(f'Part 1 Example A: {next_value}\tExpecting: 114')
+input = read_input("9a", transformer, example=True)
+next_value = sum(find_all_values(input))
+print(f'Part 1 Example A: {next_value}\tExpecting: 114')
 
-if False:
-    input = read_input("9b", transformer, example=True)
-    next_value = sum(find_all_values(input))
-    print(f'Part 1 Example B: {next_value}\tExpecting: 68')
+input = read_input("9b", transformer, example=True)
+next_value = sum(find_all_values(input))
+print(f'Part 1 Example B: {next_value}\tExpecting: 68')
 
-if True:
-    input = read_input("9a", transformer, example=True)
-    for i in range(len(input)):
-        input[i] = list(reversed(input[i]))
-    next_value = sum(find_all_values(input))
-    print(f'Part 2 Example A: {next_value}\tExpecting: 2')
+input = read_input("9a", transformer, example=True)
+for i in range(len(input)):
+    input[i] = list(reversed(input[i]))
+next_value = sum(find_all_values(input))
+print(f'Part 2 Example A: {next_value}\tExpecting: 2')
 
-if True:
-    input = read_input("9b", transformer, example=True)
-    for i in range(len(input)):
-        input[i] = list(reversed(input[i]))
-    next_value = sum(find_all_values(input))
-    print(f'Part 2 Example A: {next_value}\tExpecting: -4')
+input = read_input("9b", transformer, example=True)
+for i in range(len(input)):
+    input[i] = list(reversed(input[i]))
+next_value = sum(find_all_values(input))
+print(f'Part 2 Example A: {next_value}\tExpecting: -4\n')
 
-print()
+input = read_input("9", transformer, example=False)
+next_value = sum(find_all_values(input))
+print(f'Part 1: {next_value}\tExpecting: 2043677056')
 
-if True:
-    input = read_input("9", transformer, example=False)
-    next_value = sum(find_all_values(input))
-    print(f'Part 1: {next_value}\tExpecting: 2043677056')
-
-if True:
-    input = read_input("9", transformer, example=False)
-    for i in range(len(input)):
-        input[i] = list(reversed(input[i]))
-    next_value = sum(find_all_values(input))
-    print(f'Part 2: {next_value}\t\tExpecting: 1062')
+input = read_input("9", transformer, example=False)
+for i in range(len(input)):
+    input[i] = list(reversed(input[i]))
+next_value = sum(find_all_values(input))
+print(f'Part 2: {next_value}\t\tExpecting: 1062')
