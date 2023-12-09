@@ -54,6 +54,10 @@ def find_next_value(all_series):
 
 
 def find_all_values(all_series):
+    """
+    For each series, create the subset series in order to find the next value.
+    Calculate the next vaue and return a list of all the next values found.
+    """
     next_values = []
     for series in all_series:
         new_series = create_new_series(series)
