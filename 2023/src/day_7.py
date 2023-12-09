@@ -55,7 +55,7 @@ def transformer2(line):
     Return the score for a given hand based on hand type and order of cards.
     Treat "J" cards as Jokers and not Jacks that can represent any card.
     When looking at hand type with Jokers present, pick the best hand type that
-    can be made using the Jokers. When scoring the cards based on ordering, 
+    can be made using the Jokers. When scoring the cards based on ordering,
     treat the Jokers as the lowest card in the deck.
     """
     card_map = {
