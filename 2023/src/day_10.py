@@ -18,8 +18,8 @@ def transformer(line):
 
 def display_all_fields(field_list, title_list):
     """
-    Display each field as a visual map side by side.  All the fields need to be
-    the same size.  No validation is done to confirm sizing.
+    Display each field as a visual map side by side. All the fields need to be
+    the same size. No validation is done to confirm sizing.
     """
     if not DEBUG:
         return
@@ -204,7 +204,7 @@ def travel_pipes(field):
 def remove_junk(field):
     """
     Assuming the pipe loop on the field was converted to some other character,
-    such as an "X", any other pipes in the field must be junk.  Find all the
+    such as an "X", any other pipes in the field must be junk. Find all the
     junk pipes and convert them to an empty location.
     """
     new_field = copy.deepcopy(field)
@@ -288,7 +288,7 @@ def count_inner_tiles(field):
     the loop. Then the pipe loop needs to be converted to all X's so all the
     junk pipes can be removed. Once the junk is removed, convert the X's back
     to the original pipe characters, though this isn't necessary. Then scan
-    all locations and mark the outside locations with O's.  FInally, mark the
+    all locations and mark the outside locations with O's. Finally, mark the
     inside locations with I's and return how many were found.
     """
     # Zoom in on the field so it is easier to see what's inside vs outside.
@@ -326,16 +326,6 @@ def count_inner_tiles(field):
         last_col = max_cols - 1
         if outside_field[r][last_col] == ".":
             mark_outside(outside_field, r, last_col)
-
-    # All obviously outside locations are marked as outside. The remaining
-    # locations are either an "x" for a pipe or "." for an empty location.
-    # In order to find the less obvious outside locations, we need to look
-    # at the pipes more closely, which means undoing the pipe locations we
-    # marked with an "x".
-    for r in range(max_rows):
-        for c in range(max_cols):
-            if outside_field[r][c] == "x":
-                outside_field[r][c] = field[r][c]
 
     # Count the number of inner tiles. Keep in mind we are zoomed in, so
     # we only want to count the tiles on even locations.
