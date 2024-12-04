@@ -14,7 +14,7 @@ def read_input(day, transformer=str, example=False):
             filename = f'day_{day}_example.txt'
         else:
             filename = f'day_{day}.txt'
-        with open(os.path.join('..', 'inputs', filename)) as input_file:
+        with open(os.path.join('inputs', filename)) as input_file:
             return [transformer(line.strip()) for line in input_file]
     except FileNotFoundError as e:
         print(e)
@@ -31,7 +31,7 @@ def read_multisection_input(day, transformers, example=False):
             filename = f'day_{day}_example.txt'
         else:
             filename = f'day_{day}.txt'
-        with open(os.path.join('..', 'inputs', filename)) as input_file:
+        with open(os.path.join('inputs', filename)) as input_file:
             output = []
             sections = input_file.read().split('\n\n')
             if transformers:

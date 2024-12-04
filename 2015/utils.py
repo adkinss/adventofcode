@@ -5,14 +5,16 @@ from collections.abc import Iterable
 def read_input(day, transformer=str, example=False):
     """
     Given a day number (1-25), reads the corresponding input file into
-    a list and runs a transformer function against each item in the list.
+    a list with each line as an item.
+
+    Runs transformer function on each item.
     """
     try:
         if example:
             filename = f'day_{day}_example.txt'
         else:
             filename = f'day_{day}.txt'
-        with open(os.path.join('..', 'inputs', filename)) as input_file:
+        with open(os.path.join('inputs', filename)) as input_file:
             return [transformer(line.strip()) for line in input_file]
     except FileNotFoundError as e:
         print(e)
@@ -29,7 +31,7 @@ def read_multisection_input(day, transformers, example=False):
             filename = f'day_{day}_example.txt'
         else:
             filename = f'day_{day}.txt'
-        with open(os.path.join('..', 'inputs', filename)) as input_file:
+        with open(os.path.join('inputs', filename)) as input_file:
             output = []
             sections = input_file.read().split('\n\n')
             if transformers:
@@ -38,22 +40,6 @@ def read_multisection_input(day, transformers, example=False):
             else:
                 output = sections
             return output
-    except FileNotFoundError as e:
-        print(e)
-
-
-def read_stream(day, transformer=str, example=False):
-    """
-    Given a day number (1-25), reads the corresponding input file into
-    a string and runs a transformer function against it.
-    """
-    try:
-        if example:
-            filename = f'day_{day}_example.txt'
-        else:
-            filename = f'day_{day}.txt'
-        with open(os.path.join('..', 'inputs', filename)) as input_file:
-            return transformer(input_file.read())
     except FileNotFoundError as e:
         print(e)
 
