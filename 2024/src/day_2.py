@@ -9,66 +9,34 @@ def transformer(line):
 
 
 def is_safe(levels):
-    [up, down] = [0, 0]
-    for idx, i in enumerate(levels):
-        if idx == 0:
-            continue
-        if levels[idx] - levels[idx - 1] > 0:
-            up += 1
-        if levels[idx] - levels[idx - 1] < 0:
-            down += 1
+    if levels in [sorted(levels), sorted(levels, reverse=True)]:
+        deltas = list(map(lambda x, y: abs(y - x), levels[:-1], levels[1:]))
+        return all(d in [1, 2, 3] for d in deltas)
+    return False
 
-    if up > 0 and down > 0:
-        return False
 
-    for idx, i in enumerate(levels):
-        if idx == 0:
-            continue
-        d = abs(levels[idx] - levels[idx - 1])
-        if d < 1 or d > 3:
-            return False
+def is_mostly_safe(levels):
+    if is_safe(levels):
+        return True
 
-    return True
+    for idx in range(len(levels)):
+        if is_safe(levels[:idx] + levels[idx + 1:]):
+            return True
+    return False
 
 
 input = read_input('2', transformer, example=True)
-total_safe = 0
-for l in input:
-    if is_safe(l):
-        total_safe += 1
+total_safe = sum(list(map(is_safe, input)))
 print(f'Part 1 Example:\t{total_safe}\tIs Correct? {total_safe == 2}')
 
 input = read_input('2', transformer, example=False)
-total_safe = 0
-for l in input:
-    if is_safe(l):
-        total_safe += 1
+total_safe = sum(list(map(is_safe, input)))
 print(f'Part 1 Actual:\t{total_safe}\tIs Correct? {total_safe == 299}')
 
 input = read_input('2', transformer, example=True)
-total_safe = 0
-for l in input:
-    if is_safe(l):
-        total_safe += 1
-        continue
-    for idx, i in enumerate(l):
-        smaller = l.copy()
-        del smaller[idx]
-        if is_safe(smaller):
-            total_safe += 1
-            break
+total_safe = sum(list(map(is_mostly_safe, input)))
 print(f'Part 2 Example:\t{total_safe}\tIs Correct? {total_safe == 4}')
 
 input = read_input('2', transformer, example=False)
-total_safe = 0
-for l in input:
-    if is_safe(l):
-        total_safe += 1
-        continue
-    for idx, i in enumerate(l):
-        smaller = l.copy()
-        del smaller[idx]
-        if is_safe(smaller):
-            total_safe += 1
-            break
+total_safe = sum(list(map(is_mostly_safe, input)))
 print(f'Part 2 Actual:\t{total_safe}\tIs Correct? {total_safe == 364}')
