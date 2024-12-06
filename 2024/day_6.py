@@ -22,7 +22,7 @@ def print_map(prefix, map):
         print(prefix, ''.join(row))
 
 
-def walk_the_map(map):
+def walk_the_map(map, fill, failsafe):
     found = False
     for row in range(len(map)):
         for col in range(len(map[row])):
@@ -32,10 +32,13 @@ def walk_the_map(map):
         if found:
             break
 
-    # give_up = len(map) * len(map[0])
-    give_up = 10000
-    while give_up > 0:
-        give_up -= 1
+    [starting_row, starting_col] = [row, col]
+
+    if failsafe < 1:
+        failsafe = 10000
+
+    while failsafe > 0:
+        failsafe -= 1
         if map[row][col] == '^':
             if map[row - 1][col] == '^':
                 return -1
@@ -81,43 +84,48 @@ def walk_the_map(map):
                 continue
             break
 
-    if give_up < 1:
+    if failsafe < 1:
         return -1
 
     count = 0
     for row in range(len(map)):
         for col in range(len(map[row])):
             if map[row][col] in ['^', '>', 'v', '<']:
+                if fill != '':
+                    map[row][col] = 'X'
                 count += 1
+    if fill != '':
+        map[starting_row][starting_col] = '^'
     return count
 
 
+def walk_the_map_with_obstacles(map):
+    count = walk_the_map(map, 'X', 0)
+    failsafe = count * 2
+
+    total = 0
+    for row in range(1, len(map) - 1):
+        for col in range(1, len(map[row]) - 1):
+            if map[row][col] == 'X':
+                map_copy = deepcopy(map)
+                map_copy[row][col] = 'O'
+                if walk_the_map(map_copy, '', failsafe) < 0:
+                    total += 1
+    return total
+
+
 map = read_stream('6', transformer, example=True)
-total = walk_the_map(map)
+total = walk_the_map(map, '', 0)
 print(f'Part 1 Example:\t{total}\tIs Correct? {total == 41}')
 
 map = read_stream('6', transformer, example=False)
-total = walk_the_map(map)
+total = walk_the_map(map, '', 0)
 print(f'Part 1 Actual:\t{total}\tIs Correct? {total == 4778}')
 
 map = read_stream('6', transformer, example=True)
-total = 0
-for row in range(1, len(map) - 1):
-    for col in range(1, len(map[row]) - 1):
-        if map[row][col] == '.':
-            map_copy = deepcopy(map)
-            map_copy[row][col] = 'O'
-            if walk_the_map(map_copy) < 0:
-                total += 1
+total = walk_the_map_with_obstacles(map)
 print(f'Part 2 Example:\t{total}\tIs Correct? {total == 6}')
 
 map = read_stream('6', transformer, example=False)
-total = 0
-for row in range(1, len(map) - 1):
-    for col in range(1, len(map[row]) - 1):
-        if map[row][col] == '.':
-            map_copy = deepcopy(map)
-            map_copy[row][col] = 'O'
-            if walk_the_map(map_copy) < 0:
-                total += 1
+total = walk_the_map_with_obstacles(map)
 print(f'Part 2 Actual:\t{total}\tIs Correct? {total == 1618}')
