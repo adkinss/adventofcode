@@ -21,6 +21,23 @@ def ternary(num):
     return ternary(int(quotient)) + str(int(remainder))
 
 
+def calculation_matches(test_value, equation):
+    total = equation[0]
+    for pos in range(1, len(equation) - 1):
+        if equation[pos] == '0':
+            total *= equation[pos + 1]
+        elif equation[pos] == '1':
+            total += equation[pos + 1]
+        elif equation[pos] == '2':
+            total = int(str(total) + str(equation[pos + 1]))
+        if total > test_value:
+            return False
+
+    if total == test_value:
+        return True
+    return False
+
+
 def callibrate_simple(operation):
     [test_value, numbers] = operation
 
@@ -31,15 +48,7 @@ def callibrate_simple(operation):
         equation = numbers + list(ops)
         equation[::2] = numbers
         equation[1::2] = list(ops)
-
-        total = equation[0]
-        for pos in range(1, len(equation) - 1):
-            if equation[pos] == '0':
-                total *= equation[pos + 1]
-            if equation[pos] == '1':
-                total += equation[pos + 1]
-
-        if total == test_value:
+        if calculation_matches(test_value, equation):
             return test_value
 
     return 0
@@ -55,17 +64,7 @@ def callibrate_complex(operation):
         equation = numbers + list(ops)
         equation[::2] = numbers
         equation[1::2] = list(ops)
-
-        total = equation[0]
-        for pos in range(1, len(equation) - 1):
-            if equation[pos] == '0':
-                total *= equation[pos + 1]
-            if equation[pos] == '1':
-                total += equation[pos + 1]
-            if equation[pos] == '2':
-                total = int(str(total) + str(equation[pos + 1]))
-
-        if total == test_value:
+        if calculation_matches(test_value, equation):
             return test_value
 
     return 0
