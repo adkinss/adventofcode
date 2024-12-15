@@ -2,7 +2,7 @@ import os
 from collections.abc import Iterable
 
 
-def read_input(day, transformer=str, example=False):
+def read_input(day, transformer, example=False):
     """
     Given a day number (1-25), reads the corresponding input file into
     a list and runs a transformer function against each item in the list.
@@ -42,7 +42,7 @@ def read_multisection_input(day, transformers, example=False):
         print(e)
 
 
-def read_stream(day, transformer=str, example=False):
+def read_stream(day, transformer, example=False):
     """
     Given a day number (1-25), reads the corresponding input file into
     a string and runs a transformer function against it.
